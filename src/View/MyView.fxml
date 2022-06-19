@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import View.MazeCanvasDisplay?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane onMouseClicked="#ClickedMouse" prefHeight="283.0" prefWidth="400.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+    <left>
+        <VBox prefHeight="235.0" prefWidth="187.0" spacing="5.0" BorderPane.alignment="BOTTOM_LEFT">
+            <children>
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <Label text="Maze rows:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label text="Maze columns:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="textField_mazeRows" prefWidth="75.0" text="30" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <TextField fx:id="textField_mazeColumns" prefWidth="75.0" text="30" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Button onAction="#generateMazeButton" prefHeight="25.0" prefWidth="189.0" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                    <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="190.0" text="Solve Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+               <Label text="Player Row:" GridPane.rowIndex="4" />
+               <Label text="Player Col:" GridPane.rowIndex="5" />
+               <Label fx:id="label_Prow" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               <Label fx:id="label_Pcol" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+                </GridPane>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+         <BorderPane.margin>
+            <Insets top="600.0" />
+         </BorderPane.margin>
+        </VBox>
+    </left>
+    <bottom>
+        <HBox BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Status bar" />
+            </children>
+        </HBox>
+    </bottom>
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar prefWidth="412.0">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="Save" />
+                        <MenuItem mnemonicParsing="false" text="Restart" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <Pane prefHeight="239.0" prefWidth="244.0" BorderPane.alignment="CENTER">
+            <children>
+                <MazeCanvasDisplay onKeyPressed="#keyPress" fx:id="mazeDisplay" height="750.0" width="800.0" >
+                </MazeCanvasDisplay>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </Pane>
+    </center>
+</BorderPane>

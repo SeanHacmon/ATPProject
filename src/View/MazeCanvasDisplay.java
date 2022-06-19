@@ -35,7 +35,7 @@ public class MazeCanvasDisplay extends Canvas
     private StringProperty imageFilePlayer = new SimpleStringProperty();
     private int playerRow;
     private int playerCol;
-//    public MyViewController mvc;
+
 
     public void drawMaze(Maze m)
     {

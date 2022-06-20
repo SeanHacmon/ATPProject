@@ -17,15 +17,12 @@ import java.util.ResourceBundle;
 
 public class MyViewController implements IView, Initializable
 {
-    private Maze maze;
     public TextField textField_mazeRows;
     public TextField textField_mazeColumns;
     public Label label_Prow;
     public Label label_Pcol;
     public MazeCanvasDisplay mazeDisplay = new MazeCanvasDisplay();
-
     protected MyMazeGenerator mg = new MyMazeGenerator();
-    public KeyEvent key = null;
 
     private StringProperty updatePlayerRow = new SimpleStringProperty();
     private StringProperty updatePlayerCol = new SimpleStringProperty();
@@ -36,6 +33,7 @@ public class MyViewController implements IView, Initializable
         int cols = Integer.parseInt(textField_mazeColumns.getText());
         Maze maze = this.mg.generate(rows, cols);
         mazeDisplay.drawMaze(maze);
+        mazeDisplay.setPlayerPosition(maze.startPosition.getRowIndex(), maze.startPosition.getColumnIndex());
     }
 
     public void keyPress(KeyEvent keyevent)
@@ -48,34 +46,29 @@ public class MyViewController implements IView, Initializable
                     if (mazeDisplay.maze.maze[row - 1][col] != 1) {
                         row -= 1;
                     }
-                key = keyevent;
             }
             case DOWN -> {
                 if (inBounds(row + 1, col))
                     if (mazeDisplay.maze.maze[row + 1][col] != 1) {
                         row += 1;
                     }
-                key = keyevent;
             }
             case LEFT -> {
                 if (inBounds(row, col - 1))
                     if (mazeDisplay.maze.maze[row][col - 1] != 1) {
                         col -= 1;
                     }
-                key = keyevent;
             }
             case RIGHT -> {
                 if (inBounds(row, col + 1))
                     if (mazeDisplay.maze.maze[row][col + 1] != 1) {
                         col += 1;
                     }
-                key = keyevent;
             }
         }
         mazeDisplay.setPlayerPosition(row, col);
         setUpdatePlayerRow(row);
         setUpdatePlayerCol(col);
-//        mazeDisplay.
         keyevent.consume();
     }
 
@@ -86,8 +79,7 @@ public class MyViewController implements IView, Initializable
 
     public void ClickedMouse(MouseEvent actionEvent)
     {
-        mazeDisplay.requestFocus();
-    }
+        mazeDisplay.requestFocus();}
 
 
     public void solveMaze(ActionEvent actionEvent)

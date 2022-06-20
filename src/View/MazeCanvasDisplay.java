@@ -8,7 +8,6 @@ import algorithms.search.MazeState;
 import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -35,6 +34,8 @@ public class MazeCanvasDisplay extends Canvas
     private StringProperty imageFilePlayer = new SimpleStringProperty();
     private int playerRow;
     private int playerCol;
+    protected double canvasHeight;
+    protected double canvasWidth;
 
 
     public void drawMaze(Maze m)
@@ -42,6 +43,8 @@ public class MazeCanvasDisplay extends Canvas
         this.maze = m;
         this.playerRow = maze.startPosition.getRowIndex();
         this.playerCol = maze.startPosition.getColumnIndex();
+        canvasHeight = getHeight();
+        canvasWidth = getWidth();
         draw();
     }
 
@@ -50,25 +53,12 @@ public class MazeCanvasDisplay extends Canvas
     {
         if (this.maze != null)
         {
-            double canvasHeight = getHeight();
-            double canvasWidth = getWidth();
             int rows = maze.maze.length;
             int cols = maze.maze[0].length;
             double cellHeight = canvasHeight/rows;
             double cellWidth = canvasWidth/cols;
-
             drawMazeWalls(cellWidth, cellHeight);
             drawMazePlayer(cellWidth, cellHeight);
-
-//            if (mvc.key.getCode() == KeyCode.UP)
-//                PlayerGoRight(graphicsContext, cellWidth, cellHeight);
-//            else if (mvc.key.getCode() == KeyCode.DOWN)
-//                PlayerGoDown(graphicsContext, cellWidth, cellHeight);
-//            else if (mvc.key.getCode() == KeyCode.RIGHT)
-//                PlayerGoRight(graphicsContext, cellWidth, cellHeight);
-//            else if (mvc.key.getCode() == KeyCode.LEFT)
-//                PlayerGoLeft(graphicsContext, cellWidth, cellHeight);
-
         }
     }
 
@@ -103,6 +93,20 @@ public class MazeCanvasDisplay extends Canvas
         }
     }
 
+    private void StartGame()
+    {
+        if (this.maze != null)
+        {
+            double canvasHeight = getHeight();
+            double canvasWidth = getWidth();
+            int rows = maze.maze.length;
+            int cols = maze.maze[0].length;
+            double cellHeight = canvasHeight/rows;
+            double cellWidth = canvasWidth/cols;
+
+            drawMazeWalls(cellWidth, cellHeight);
+        }
+    }
 
     // Draws a goal Cell Color.
     private void drawGoal(double cellSize)
@@ -146,94 +150,94 @@ public class MazeCanvasDisplay extends Canvas
     }
 
 
-//    public void PlayerGoRight(double cellWidth, double cellHeight)
-//    {
-//        Image playerImageUp = null;
-//        Image playerImageDown = null;
-//        Image playerImageRight = null;
-//        Image playerImageLeft = null;
-//
-//        try {
-//            playerImageUp = new Image(new FileInputStream("./Resources/Images/Ash_Up.png"));
-//            playerImageDown = new Image(new FileInputStream("./Resources/Images/Ash_Down.png"));
-//            playerImageRight = new Image(new FileInputStream("./Resources/Images/Ash_Right.png"));
-//            playerImageLeft = new Image(new FileInputStream("./Resources/Images/Ash_Left.png"));
-//        }
-//        catch (FileNotFoundException e){System.out.println("There is no player image");}
-//        double x = this.playerCol* cellWidth;
-//        double y = this.playerRow * cellHeight;
-//        graphicsContext.setFill(Color.FORESTGREEN);
-//        if (playerImageDown == null)
-//            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
-//        else
-//            graphicsContext.drawImage(playerImageRight, x, y, cellWidth, cellHeight);
-//    }
-//    public void PlayerGoUp(double cellWidth, double cellHeight)
-//    {
-//        Image playerImageUp = null;
-//        Image playerImageDown = null;
-//        Image playerImageRight = null;
-//        Image playerImageLeft = null;
-//
-//        try {
-//            playerImageUp = new Image(new FileInputStream("./Resources/Images/Ash_Up.png"));
-//            playerImageDown = new Image(new FileInputStream("./Resources/Images/Ash_Down.png"));
-//            playerImageRight = new Image(new FileInputStream("./Resources/Images/Ash_Right.png"));
-//            playerImageLeft = new Image(new FileInputStream("./Resources/Images/Ash_Left.png"));
-//        }
-//        catch (FileNotFoundException e){System.out.println("There is no player image");}
-//        double x = this.playerCol* cellWidth;
-//        double y = this.playerRow * cellHeight;
-//        graphicsContext.setFill(Color.FORESTGREEN);
-//        if (playerImageDown == null)
-//            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
-//        else
-//            graphicsContext.drawImage(playerImageUp, x, y, cellWidth, cellHeight);
-//    }
-//    public void PlayerGoDown(double cellWidth, double cellHeight)
-//    {
-//        Image playerImageUp = null;
-//        Image playerImageDown = null;
-//        Image playerImageRight = null;
-//        Image playerImageLeft = null;
-//
-//        try {
-//            playerImageUp = new Image(new FileInputStream("./Resources/Images/Ash_Up.png"));
-//            playerImageDown = new Image(new FileInputStream("./Resources/Images/Ash_Down.png"));
-//            playerImageRight = new Image(new FileInputStream("./Resources/Images/Ash_Right.png"));
-//            playerImageLeft = new Image(new FileInputStream("./Resources/Images/Ash_Left.png"));
-//        }
-//        catch (FileNotFoundException e){System.out.println("There is no player image");}
-//        double x = this.playerCol* cellWidth;
-//        double y = this.playerRow * cellHeight;
-//        graphicsContext.setFill(Color.FORESTGREEN);
-//        if (playerImageDown == null)
-//            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
-//        else
-//            graphicsContext.drawImage(playerImageDown, x, y, cellWidth, cellHeight);
-//    }
-//    public void PlayerGoLeft(double cellWidth, double cellHeight)
-//    {
-//        Image playerImageUp = null;
-//        Image playerImageDown = null;
-//        Image playerImageRight = null;
-//        Image playerImageLeft = null;
-//
-//        try {
-//            playerImageUp = new Image(new FileInputStream("./Resources/Images/Ash_Up.png"));
-//            playerImageDown = new Image(new FileInputStream("./Resources/Images/Ash_Down.png"));
-//            playerImageRight = new Image(new FileInputStream("./Resources/Images/Ash_Right.png"));
-//            playerImageLeft = new Image(new FileInputStream("./Resources/Images/Ash_Left.png"));
-//        }
-//        catch (FileNotFoundException e){System.out.println("There is no player image");}
-//        double x = this.playerCol* cellWidth;
-//        double y = this.playerRow * cellHeight;
-//        graphicsContext.setFill(Color.FORESTGREEN);
-//        if (playerImageDown == null)
-//            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
-//        else
-//            graphicsContext.drawImage(playerImageLeft, x, y, cellWidth, cellHeight);
-//    }
+    public void PlayerGoRight(double cellWidth, double cellHeight)
+    {
+        Image playerImageUp = null;
+        Image playerImageDown = null;
+        Image playerImageRight = null;
+        Image playerImageLeft = null;
+
+        try {
+            playerImageUp = new Image(new FileInputStream("./Resources/Images/Ash_Up.png"));
+            playerImageDown = new Image(new FileInputStream("./Resources/Images/Ash_Down.png"));
+            playerImageRight = new Image(new FileInputStream("./Resources/Images/Ash_Right.png"));
+            playerImageLeft = new Image(new FileInputStream("./Resources/Images/Ash_Left.png"));
+        }
+        catch (FileNotFoundException e){System.out.println("There is no player image");}
+        double x = this.playerCol* cellWidth;
+        double y = this.playerRow * cellHeight;
+        graphicsContext.setFill(Color.FORESTGREEN);
+        if (playerImageDown == null)
+            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+        else
+            graphicsContext.drawImage(playerImageRight, x, y, cellWidth, cellHeight);
+    }
+    public void PlayerGoUp(double cellWidth, double cellHeight)
+    {
+        Image playerImageUp = null;
+        Image playerImageDown = null;
+        Image playerImageRight = null;
+        Image playerImageLeft = null;
+
+        try {
+            playerImageUp = new Image(new FileInputStream("./Resources/Images/Ash_Up.png"));
+            playerImageDown = new Image(new FileInputStream("./Resources/Images/Ash_Down.png"));
+            playerImageRight = new Image(new FileInputStream("./Resources/Images/Ash_Right.png"));
+            playerImageLeft = new Image(new FileInputStream("./Resources/Images/Ash_Left.png"));
+        }
+        catch (FileNotFoundException e){System.out.println("There is no player image");}
+        double x = this.playerCol* cellWidth;
+        double y = this.playerRow * cellHeight;
+        graphicsContext.setFill(Color.FORESTGREEN);
+        if (playerImageDown == null)
+            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+        else
+            graphicsContext.drawImage(playerImageUp, x, y, cellWidth, cellHeight);
+    }
+    public void PlayerGoDown(double cellWidth, double cellHeight)
+    {
+        Image playerImageUp = null;
+        Image playerImageDown = null;
+        Image playerImageRight = null;
+        Image playerImageLeft = null;
+
+        try {
+            playerImageUp = new Image(new FileInputStream("./Resources/Images/Ash_Up.png"));
+            playerImageDown = new Image(new FileInputStream("./Resources/Images/Ash_Down.png"));
+            playerImageRight = new Image(new FileInputStream("./Resources/Images/Ash_Right.png"));
+            playerImageLeft = new Image(new FileInputStream("./Resources/Images/Ash_Left.png"));
+        }
+        catch (FileNotFoundException e){System.out.println("There is no player image");}
+        double x = this.playerCol* cellWidth;
+        double y = this.playerRow * cellHeight;
+        graphicsContext.setFill(Color.FORESTGREEN);
+        if (playerImageDown == null)
+            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+        else
+            graphicsContext.drawImage(playerImageDown, x, y, cellWidth, cellHeight);
+    }
+    public void PlayerGoLeft(double cellWidth, double cellHeight)
+    {
+        Image playerImageUp = null;
+        Image playerImageDown = null;
+        Image playerImageRight = null;
+        Image playerImageLeft = null;
+
+        try {
+            playerImageUp = new Image(new FileInputStream("./Resources/Images/Ash_Up.png"));
+            playerImageDown = new Image(new FileInputStream("./Resources/Images/Ash_Down.png"));
+            playerImageRight = new Image(new FileInputStream("./Resources/Images/Ash_Right.png"));
+            playerImageLeft = new Image(new FileInputStream("./Resources/Images/Ash_Left.png"));
+        }
+        catch (FileNotFoundException e){System.out.println("There is no player image");}
+        double x = this.playerCol* cellWidth;
+        double y = this.playerRow * cellHeight;
+        graphicsContext.setFill(Color.FORESTGREEN);
+        if (playerImageDown == null)
+            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+        else
+            graphicsContext.drawImage(playerImageLeft, x, y, cellWidth, cellHeight);
+    }
 
 
 
@@ -295,11 +299,42 @@ public class MazeCanvasDisplay extends Canvas
     public String getImageFilePlayer() {return imageFilePlayer.get();}
     public void setImageFileWall(String imageFileWall) {this.imageFileWall.set(imageFileWall);}
     public void setImageFilePlayer(String imageFilePlayer) {this.imageFilePlayer.set(imageFilePlayer);}
+
     public void setPlayerPosition(int row, int col)
     {
-        this.playerRow = row;
-        this.playerCol = col;
-        draw();
+        if (row == this.playerRow && col == this.playerCol)
+        {
+            draw();
+        }
+        if (this.playerCol < col)
+        {
+            this.playerRow = row;
+            this.playerCol = col;
+            StartGame();
+            PlayerGoRight(canvasWidth / this.maze.maze[0].length, canvasHeight/this.maze.maze.length);
+        }
+        else if (this.playerCol > col)
+        {
+            this.playerRow = row;
+            this.playerCol = col;
+            StartGame();
+            PlayerGoLeft(canvasWidth / this.maze.maze[0].length, canvasHeight/this.maze.maze.length);
+        }
+        else if (this.playerRow < row)
+        {
+            this.playerRow = row;
+            this.playerCol = col;
+            StartGame();
+            PlayerGoDown(canvasWidth / this.maze.maze[0].length, canvasHeight/this.maze.maze.length);
+        }
+        else if (this.playerRow > row)
+        {
+            this.playerRow = row;
+            this.playerCol = col;
+            StartGame();
+            PlayerGoUp(canvasWidth / this.maze.maze[0].length, canvasHeight/this.maze.maze.length);
+        }
+//        draw();
     }
 
 }

@@ -8,7 +8,10 @@ import View.MyViewController;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -67,8 +70,21 @@ public class MyViewModel extends Observable implements Observer
 
     public void setControllerStage(){this.setStage(this.model.getStage());}
 
-    public void exit() {this.model.stopServers();}
-
+    public void exit()
+    {
+        this.model.stopServers();
+    }
+    public void safeExit(Stage mainStage) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Exit");
+        alert.setHeaderText("You're about to exit!");
+        alert.setContentText("Are you sure you want to exit?");
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            this.model.stopServers();
+            mainStage.close();
+            Platform.exit();
+        }
+    }
 
 
 

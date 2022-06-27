@@ -9,17 +9,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 public class Main extends Application
 {
     private MyModel model;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         model = new MyModel();
         model.startServers();
-        Parent root = FXMLLoader.load(getClass().getResource("MyView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("BackGround.fxml"));
         primaryStage.setTitle("Pokemon LeafGreen");
         primaryStage.setScene(new Scene(root, 1000, 900));
         this.model.setStage(primaryStage);

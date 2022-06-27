@@ -53,6 +53,7 @@ public class MyViewController implements IView, Initializable, Observer
         int rows = Integer.parseInt(textField_mazeRows.getText());
         int cols = Integer.parseInt(textField_mazeColumns.getText());
         viewModel.transformMaze(rows, cols);
+        viewModel.setSolution(null);
     }
 
     public void keyPress(KeyEvent keyevent)
@@ -73,8 +74,7 @@ public class MyViewController implements IView, Initializable, Observer
 
     public void solveMaze(ActionEvent actionEvent)
     {
-//        mazeDisplay.drawSolution(mazeDisplay.canvasWidth* mazeDisplay.canvasHeight);
-        //TODO
+        viewModel.solveMaze();
     }
 
     @Override
@@ -122,13 +122,16 @@ public class MyViewController implements IView, Initializable, Observer
         String str = (String)arg;
         switch (str)
         {
-            case "Maze generated" -> mazeDisplay.drawMaze(viewModel.getMaze());
+            case "Maze generated" -> {
+                mazeDisplay.drawMaze(viewModel.getMaze());
+                mazeDisplay.setSolution(null);
+            }
             case "Player was moved" ->{
                 mazeDisplay.setPlayerPosition
                     (viewModel.getPosition().getRowIndex(),viewModel.getPosition().getColumnIndex());
                 setUpdatePlayerRow(viewModel.getPlayerPosition().getRowIndex());
                 setUpdatePlayerCol(viewModel.getPlayerPosition().getColumnIndex());}
-            case "Maze Solved" -> mazeDisplay.setSolution(viewModel.getSolution());
+            case "Solved Maze" -> mazeDisplay.setSolution(viewModel.getSolution());
             default -> System.out.println("didnt do anything");
         }
 
@@ -139,4 +142,10 @@ public class MyViewController implements IView, Initializable, Observer
         this.viewModel.exit();
         Platform.exit();
     }
+
+
+    public GridPane getPane() {return pane;}
+    public void setPane(GridPane pane) {this.pane = pane;}
+    public MyViewModel getViewModel() {return viewModel;}
+    public void setViewModel(MyViewModel viewModel) {this.viewModel = viewModel;}
 }

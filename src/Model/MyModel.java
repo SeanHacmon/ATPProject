@@ -14,6 +14,9 @@ import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
 import algorithms.search.Solution;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -32,7 +35,7 @@ public class MyModel extends Observable implements IModel
     private Position playerPosition = new Position(0,0);
     private Stage stage;
 
-    public MyModel() {}//this.startServers();
+    public MyModel() {}
 
     public void startServers()
     {
@@ -70,7 +73,6 @@ public class MyModel extends Observable implements IModel
                         is.read(decompressedMaze);
                         Maze m = new Maze(decompressedMaze);
                         saveMaze(m);
-//                        maze.print();
                     } catch (Exception var10) {
                         var10.printStackTrace();
                     }
@@ -97,7 +99,6 @@ public class MyModel extends Observable implements IModel
                         toServer.flush();
 
                         Maze m = m1;
-                        maze.print();
                         toServer.writeObject(maze);
                         toServer.flush();
                         Solution mazeSolution = (Solution)fromServer.readObject();
@@ -118,6 +119,8 @@ public class MyModel extends Observable implements IModel
         } catch (UnknownHostException var1) {
             var1.printStackTrace();
         }
+        setChanged();
+        notifyObservers("Solved Maze");
 
     }
 
@@ -188,7 +191,7 @@ public class MyModel extends Observable implements IModel
             case LEFT_DOWN_CROSS:
                 if (inBounds(this.playerPosition.getRowIndex() +1, this.playerPosition.getColumnIndex() -1))
                 {
-                    if (maze.maze[this.playerPosition.getRowIndex() - 1][this.playerPosition.getColumnIndex() + 1] != 1) {
+                    if (maze.maze[this.playerPosition.getRowIndex() + 1][this.playerPosition.getColumnIndex() - 1] != 1) {
                         this.playerPosition.setColumnIndex(this.playerPosition.getColumnIndex() - 1);
                         this.playerPosition.setRowIndex(this.playerPosition.getRowIndex() + 1);
                     }
@@ -235,9 +238,7 @@ public class MyModel extends Observable implements IModel
     public Position getPlayerPosition() {return playerPosition;}
     public void setPlayerPosition(Position playerPosition) {this.playerPosition = playerPosition;}
     public Maze getMaze() {return this.maze;}
+
+
+
 }
-
-
-//    Maze maze = this.mg.generate(rows, cols);
-//        mazeDisplay.drawMaze(maze);
-//                mazeDisplay.setPlayerPosition(maze.startPosition.getRowIndex(), maze.startPosition.getColumnIndex());

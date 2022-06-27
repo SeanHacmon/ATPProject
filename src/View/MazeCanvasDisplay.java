@@ -84,6 +84,8 @@ public class MazeCanvasDisplay extends Canvas
             double cellHeight = canvasHeight/rows;
             double cellWidth = canvasWidth/cols;
             drawMazeWalls(cellWidth, cellHeight);
+            if(solution != null)
+                drawSolution(cellWidth, cellHeight);
             drawMazePlayer(cellWidth, cellHeight);
             drawGoal(cellWidth, cellHeight);
         }
@@ -131,6 +133,8 @@ public class MazeCanvasDisplay extends Canvas
             double cellWidth = canvasWidth / cols;
             drawMazeWalls(cellWidth, cellHeight);
             drawGoal(cellWidth, cellHeight);
+            if(solution != null)
+                drawSolution(cellWidth, cellHeight);
         }
     }
 
@@ -278,12 +282,15 @@ public class MazeCanvasDisplay extends Canvas
 
 
     // Draws Solution path in the maze.
-    private void drawSolution(double cellSize) {
+    private void drawSolution(double cellWidth, double cellHeight) {
         if (this.solution == null)
             return;
-
+        Image solutionImage = null;
         HashSet<Position> pathHashMap = solutionToPositionsHashSet();
-        Image solutionImage = mazeGallery.getImage(MazeGallery.MazeImage.Solution);
+        try {
+            solutionImage = new Image(new FileInputStream("./Resources/Images/solution.png"));
+        }
+        catch(FileNotFoundException e){System.out.println("There is no solution image");}
         Color solutionColor = Color.MEDIUMTURQUOISE;
 
         Position goalPosition = this.maze.getGoalPosition();
@@ -292,13 +299,13 @@ public class MazeCanvasDisplay extends Canvas
             for (int j = 0; j < this.maze.col; j++) {
                 tempPosition = new Position(i, j);
                 if (pathHashMap.contains(tempPosition) && !tempPosition.equals(goalPosition)) {
-                    double x = j * cellSize;
-                    double y = i * cellSize;
+                    double x = j * cellWidth;
+                    double y = i * cellHeight;
                     if (solutionImage == null) {
                         graphicsContext.setFill(solutionColor);
-                        graphicsContext.fillRect(x, y, cellSize, cellSize);
+                        graphicsContext.fillRect(x, y, cellWidth, cellHeight);
                     } else
-                        graphicsContext.drawImage(solutionImage, x, y, cellSize, cellSize);
+                        graphicsContext.drawImage(solutionImage, x, y, cellWidth, cellHeight);
 
                 }
             }

@@ -33,17 +33,19 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <Label text="Maze rows:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <Label text="Maze columns:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                    <TextField fx:id="textField_mazeRows" prefWidth="75.0" text="30" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                    <TextField fx:id="textField_mazeColumns" prefWidth="75.0" text="30" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <TextField fx:id="textField_mazeRows" prefWidth="75.0" text="15" GridPane.columnIndex="1" />
+                    <TextField fx:id="textField_mazeColumns" prefWidth="75.0" text="15" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <Button onAction="#generateMazeButton" prefHeight="25.0" prefWidth="189.0" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                     <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="190.0" text="Solve Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-               <Label text="Player Row:" GridPane.rowIndex="4" />
-               <Label text="Player Col:" GridPane.rowIndex="5" />
-               <Label fx:id="label_Prow" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-               <Label fx:id="label_Pcol" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               <Label text="Player Row:" GridPane.rowIndex="5" />
+               <Label text="Player Col:" GridPane.rowIndex="6" />
+               <Label fx:id="label_Prow" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               <Label fx:id="label_Pcol" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+               <Button onAction="#ExitButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="182.0" text="Exit" GridPane.columnSpan="2" GridPane.rowIndex="4" />
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -53,7 +55,7 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
          <BorderPane.margin>
-            <Insets top="600.0" />
+            <Insets top="10.0" />
          </BorderPane.margin>
         </VBox>
     </left>
@@ -71,8 +73,9 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
+                        <MenuItem fx:id="OpenItem" mnemonicParsing="false" onAction="#OpenButton" text="Open" />
                                 <MenuItem mnemonicParsing="false" text="Close" />
-                        <MenuItem mnemonicParsing="false" text="Save" />
+                        <MenuItem fx:id="saveItem" mnemonicParsing="false" onAction="#SaveButton" text="Save" />
                         <MenuItem mnemonicParsing="false" text="Restart" />
                             </items>
                         </Menu>

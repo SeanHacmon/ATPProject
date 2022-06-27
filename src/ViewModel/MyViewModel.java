@@ -4,10 +4,15 @@ import Model.IModel;
 import Model.Movements;
 import Model.MyModel;
 import View.IView;
+import View.MyViewController;
 import algorithms.mazeGenerators.Maze;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
+import javafx.geometry.Pos;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,11 +22,15 @@ public class MyViewModel extends Observable implements Observer
 {
     private IModel model;
     private IView view;
+//    private Maze maze;
+    private Solution solution;
+    private Stage stage;
 
-    public MyViewModel(IModel m)
+    public MyViewModel()
     {
-        this.model = m;
+        this.model = new MyModel();
         this.model.assignObserver(this);
+        setControllerStage();
     }
 
 
@@ -32,7 +41,7 @@ public class MyViewModel extends Observable implements Observer
         notifyObservers(arg);
     }
 
-    public void transformMaze(int row, int col) {this.model.generateMaze(row, col);}
+    public void transformMaze(int row, int col) {this.model.generateMaze(row, col) ;}
 
     public void movePlayer(KeyEvent event)
     {
@@ -54,14 +63,25 @@ public class MyViewModel extends Observable implements Observer
         this.model.updatePlayerPosition(movement);
     }
 
-    public void getPlayerPosition(){}
+    public Position getPlayerPosition(){return this.model.getPlayerPosition();}
+
+    public void setControllerStage(){this.setStage(this.model.getStage());}
+
+    public void exit() {this.model.stopServers();}
 
 
 
+
+    public void setSolution(Solution solution) {this.solution = solution;}
+    public Stage getStage() {return stage;}
+    public void setStage(Stage stage) {this.stage = stage;}
     public void solveMaze() {this.model.solveMaze();}
     public Solution getSolution() {return this.model.getMazeSolution();}
     public IModel getModel() {return model;}
     public void setModel(IModel model) {this.model = model;}
     public IView getView() {return view;}
     public void setView(IView view) {this.view = view;}
+    public Maze getMaze() {return model.getMaze();}
+    public void setMaze(Maze m){model.setMaze(m);}
+    public Position getPosition(){return model.getPlayerPosition();}
 }

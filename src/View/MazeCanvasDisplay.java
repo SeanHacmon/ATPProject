@@ -36,6 +36,30 @@ public class MazeCanvasDisplay extends Canvas
     private int playerCol;
     protected double canvasHeight;
     protected double canvasWidth;
+    private MazeCanvasDisplay camera;
+//    private MazeAudioPlayer mazeAudioPlayer;
+
+
+//    public MazeCanvasDisplay()
+//    {
+//        this.LoadRes();
+//        this.requestFocus();
+//    }
+
+//    public void LoadRes()
+//    {
+//        this.LoadRes(MazeGallery.Theme.Dora);
+//    }
+//    public void LoadRes(MazeGallery.Theme theme)
+//    {
+//        LoadImages(theme);
+//        LoadSound();
+//    }
+
+    private void LoadImages(MazeGallery.Theme theme) { this.mazeGallery = MazeGallery.getInstance(theme);}
+
+//    private void LoadSound() {this.mazeAudioPlayer = MazeAudioPlayer.getInstance();}
+
 
 
     public void drawMaze(Maze m)
@@ -45,6 +69,7 @@ public class MazeCanvasDisplay extends Canvas
         this.playerCol = maze.startPosition.getColumnIndex();
         canvasHeight = getHeight();
         canvasWidth = getWidth();
+
         draw();
     }
 
@@ -53,12 +78,14 @@ public class MazeCanvasDisplay extends Canvas
     {
         if (this.maze != null)
         {
+
             int rows = maze.maze.length;
             int cols = maze.maze[0].length;
             double cellHeight = canvasHeight/rows;
             double cellWidth = canvasWidth/cols;
             drawMazeWalls(cellWidth, cellHeight);
             drawMazePlayer(cellWidth, cellHeight);
+            drawGoal(cellWidth, cellHeight);
         }
     }
 
@@ -95,34 +122,39 @@ public class MazeCanvasDisplay extends Canvas
 
     private void StartGame()
     {
-        if (this.maze != null)
-        {
+        if (this.maze != null) {
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
             int rows = maze.maze.length;
             int cols = maze.maze[0].length;
-            double cellHeight = canvasHeight/rows;
-            double cellWidth = canvasWidth/cols;
-
+            double cellHeight = canvasHeight / rows;
+            double cellWidth = canvasWidth / cols;
             drawMazeWalls(cellWidth, cellHeight);
+            drawGoal(cellWidth, cellHeight);
         }
     }
 
     // Draws a goal Cell Color.
-    private void drawGoal(double cellSize)
+    private void drawGoal(double cellWidth, double cellHeight)
     {
-        Image goalImage = mazeGallery.getImage(MazeGallery.MazeImage.Goal);
+        Image goalImage = null;
+        try
+        {
+            goalImage = new Image(new FileInputStream("./Resources/Images/Charizard.png"));
+        }
+        catch (FileNotFoundException e){System.out.println("There is no Goal image");}
         Color goalColor = Color.LAWNGREEN;
 
         Position goalPosition = this.maze.getGoalPosition();
-        double x = goalPosition.getRowIndex() * cellSize;
-        double y = goalPosition.getColumnIndex() * cellSize;
+        double x = goalPosition.getRowIndex() * cellWidth;
+        double y = goalPosition.getColumnIndex() * cellHeight;
 
-        if (goalImage == null) {
+        if (goalImage == null)
+        {
             graphicsContext.setFill(goalColor);
-            graphicsContext.fillRect(x, y, cellSize, cellSize);
+            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
         } else
-            graphicsContext.drawImage(goalImage, x, y, cellSize, cellSize);
+            graphicsContext.drawImage(goalImage, x, y, cellWidth, cellHeight);
     }
 
 
@@ -284,6 +316,18 @@ public class MazeCanvasDisplay extends Canvas
         return pathHashMap;
     }
 
+    public void finish() {
+//        this.mazeAudioPlayer.stopAll();
+        StageGenerator.getInstance(StageGenerator.StageName.Main).close();
+        StageGenerator.startVideo();
+    }
+
+    public void toggleFreeCamera() {
+        this.camera.toggleFreeCamera();
+        this.draw();
+    }
+
+//    public void wallHit() {this.mazeAudioPlayer.play(MazeAudioPlayer.MazeSound.WallHit);}
 
     // getters & setters.
 
@@ -299,7 +343,7 @@ public class MazeCanvasDisplay extends Canvas
     public String getImageFilePlayer() {return imageFilePlayer.get();}
     public void setImageFileWall(String imageFileWall) {this.imageFileWall.set(imageFileWall);}
     public void setImageFilePlayer(String imageFilePlayer) {this.imageFilePlayer.set(imageFilePlayer);}
-
+    public void setSolution(Solution sol){this.solution = sol; draw();}
     public void setPlayerPosition(int row, int col)
     {
         if (row == this.playerRow && col == this.playerCol)
@@ -334,7 +378,15 @@ public class MazeCanvasDisplay extends Canvas
             StartGame();
             PlayerGoUp(canvasWidth / this.maze.maze[0].length, canvasHeight/this.maze.maze.length);
         }
-//        draw();
+    }
+
+    public void resizeHandle() {
+        this.updateCamera();
+        this.draw();
+    }
+
+    private void updateCamera() {
+        //todo
     }
 
 }

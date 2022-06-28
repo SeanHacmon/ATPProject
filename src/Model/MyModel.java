@@ -218,6 +218,30 @@ public class MyModel extends Observable implements IModel
     }
 
 
+    public void saveMazeFile(File chosen)
+    {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(chosen))) {
+            out.writeObject(this.maze);
+        } catch (IOException e) {
+            System.out.println("Maze haven't saved");
+        }
+    }
+
+    @Override
+    public void loadMaze(File chosen)
+    {
+        Maze tempMaze = null;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(chosen))) {
+            tempMaze = (Maze) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Maze not allowed");
+            return;
+        }
+        this.setMaze(tempMaze);
+        setChanged();
+        notifyObservers("Maze Loaded");
+    }
+
     public void saveMaze(Maze m)
     {
         this.maze = m;

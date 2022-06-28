@@ -11,12 +11,11 @@ import java.io.File;
 
 public interface IModel
 {
-//    public void generateMaze(int row, int col);
-    public Maze getMaze();
-    public void solveMaze();
-    public Solution getMazeSolution();
-    public void finishGame();
-    public void updatePlayerPosition(Movements direction);
+    Maze getMaze();
+    void solveMaze();
+    Solution getMazeSolution();
+    void finishGame();
+    void updatePlayerPosition(Movements direction);
     void assignObserver(MyViewModel myViewModel);
     Position getPlayerPosition();
     boolean inBounds(int row, int col);
@@ -26,6 +25,8 @@ public interface IModel
     void stopServers();
     void setStage(Stage s);
     Stage getStage();
+    void saveMazeFile(File chosen);
+    void loadMaze(File chosen);
 
 
     // TODO Relevant methods.

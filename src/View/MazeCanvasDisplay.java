@@ -423,13 +423,37 @@ public class MazeCanvasDisplay extends Canvas
         stage.show();
     }
 
-    public void resizeHandle() {
-        this.updateCamera();
-        this.draw();
+    public void About() throws FileNotFoundException
+    {
+        Stage stage = new Stage();
+        GridPane gridPane = new GridPane();
+        AnchorPane anchorPane = new AnchorPane();
+        InputStream stream = new FileInputStream("resources/Images/AboutImage.png");
+        Image image = new Image(stream);
+        ImageView imageView = new ImageView(image);
+        imageView.fitWidthProperty().bind(gridPane.widthProperty());
+        imageView.setPreserveRatio(true);
+        anchorPane.getChildren().add(imageView);
+        gridPane.getChildren().add(anchorPane);
+        Scene scene = new Scene(gridPane, 600, 220);
+        InputStream Stream = new FileInputStream("resources/Images/AboutImage.png");
+        stage.getIcons().add(new Image(Stream));
+        stage.setTitle("About");
+        stage.setScene(scene);
+        stage.show();
+
     }
 
-    private void updateCamera() {
-        //todo
-    }
+
+
+//
+//    public void resizeHandle() {
+//        this.updateCamera();
+//        this.draw();
+//    }
+//
+//    private void updateCamera() {
+//        //todo
+//    }
 
 }

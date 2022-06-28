@@ -100,4 +100,14 @@ public class MyViewModel extends Observable implements Observer
     public Maze getMaze() {return model.getMaze();}
     public void setMaze(Maze m){model.setMaze(m);}
     public Position getPosition(){return model.getPlayerPosition();}
+
+    public void saveMazeFile(File chosen)
+    {
+        model.saveMazeFile(chosen);
+    }
+
+    public void loadMaze(File chosen)
+    {
+        this.model.loadMaze(chosen);
+    }
 }

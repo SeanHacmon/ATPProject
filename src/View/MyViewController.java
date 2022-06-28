@@ -2,6 +2,7 @@ package View;
 
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.MyMazeGenerator;
+import algorithms.mazeGenerators.Position;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -112,29 +113,14 @@ public class MyViewController implements IView, Initializable, Observer
 
     public void SaveButton(ActionEvent actionEvent)
     {
-        Window stage = menu.getScene().getWindow();
-        fileChooser.setTitle("Save Maze");
-        fileChooser.setInitialFileName("MySave");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Maze file","*.png"));    }
-
-    public void OpenButton(ActionEvent actionEvent)
-    {
-        Window stage = menu.getScene().getWindow();
-        fileChooser.setTitle("load Maze");
-
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Maze txt file","*.txt","*.doc"),
-                new FileChooser.ExtensionFilter("Maze pdf", "*.pdf"),
-                new FileChooser.ExtensionFilter("Maze Image","*jpg","*gif"));
-
-        try {
-            File file = fileChooser.showOpenDialog(stage);
-            fileChooser.setInitialDirectory(file.getParentFile());//save the chosen directory
-            //loading file
-        }
-        catch(Exception e) {
-
-        }
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Save maze");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (*.maze)", "*.maze"));
+        File chosen = fc.showSaveDialog(null);
+        if (chosen != null)
+            this.viewModel.saveMazeFile(chosen);
     }
+
     @Override
     public void update(Observable o, Object arg)
     {
@@ -155,6 +141,12 @@ public class MyViewController implements IView, Initializable, Observer
             case "Won game" -> {
                 Stage stage = new Stage();
                 EndGame(stage);
+            }
+            case "Maze Loaded" -> {
+                Position p = viewModel.getPlayerPosition();
+                mazeDisplay.drawMaze(viewModel.getMaze());
+                setUpdatePlayerRow(p.getRowIndex());
+                setUpdatePlayerCol(p.getColumnIndex());
             }
             default -> System.out.println("didnt do anything");
         }
@@ -198,21 +190,32 @@ public class MyViewController implements IView, Initializable, Observer
     public MyViewModel getViewModel() {return viewModel;}
     public void setViewModel(MyViewModel viewModel) {this.viewModel = viewModel;}
 
-    public void AboutClick(ActionEvent actionEvent)
-    {
-
+    public void AboutClick(ActionEvent actionEvent) throws FileNotFoundException {
+        mazeDisplay.About();
     }
 
     public void HelpClick(ActionEvent actionEvent) throws FileNotFoundException {
         mazeDisplay.help();
     }
 
-    public void ExitClick(ActionEvent actionEvent) {
+    public void ExitClick(ActionEvent actionEvent)
+    {
+        ExitButton(actionEvent);
     }
 
     public void PropertiesClick(ActionEvent actionEvent) {
     }
 
     public void LoadButton(ActionEvent actionEvent) {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Open maze");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (*.maze)", "*.maze"));
+        File chosen = fc.showOpenDialog(null);
+        viewModel.loadMaze(chosen);
+    }
+
+    public void NewButton(ActionEvent actionEvent)
+    {
+        generateMazeButton(actionEvent);
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--<?import View.MazeCanvasDisplay?>-->
+<?import View.MazeCanvasDisplay?>
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -73,17 +73,17 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                        <MenuItem fx:id="OpenItem" mnemonicParsing="false" onAction="#OpenButton" text="Open" />
+                        <MenuItem fx:id="NewItem" mnemonicParsing="false" onAction="#NewButton" text="New" />
                         <MenuItem fx:id="saveItem" mnemonicParsing="false" onAction="#SaveButton" text="Save" />
                         <MenuItem mnemonicParsing="false" onAction="#LoadButton" text="Load" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Options">
                             <items>
-                        <MenuItem onAction="#PropertiesClick" mnemonicParsing="false" text="Properties" />
-                                <MenuItem onAction="#AboutClick" mnemonicParsing="false" text="About" />
-                        <MenuItem onAction="#HelpClick" mnemonicParsing="false" text="Help" />
-                        <MenuItem onAction="#ExitClick" mnemonicParsing="false" text="Exit" />
+                        <MenuItem mnemonicParsing="false" onAction="#PropertiesClick" text="Properties" />
+                                <MenuItem mnemonicParsing="false" onAction="#AboutClick" text="About" />
+                        <MenuItem mnemonicParsing="false" onAction="#HelpClick" text="Help" />
+                        <MenuItem mnemonicParsing="false" onAction="#ExitClick" text="Exit" />
                             </items>
                         </Menu>
                     </menus>
@@ -94,8 +94,8 @@
     <center>
         <Pane prefHeight="239.0" prefWidth="244.0" BorderPane.alignment="CENTER">
             <children>
-<!--                <MazeCanvasDisplay onKeyPressed="#keyPress" fx:id="mazeDisplay" height="750.0" width="800.0" >-->
-<!--                </MazeCanvasDisplay>-->
+                <MazeCanvasDisplay onKeyPressed="#keyPress" fx:id="mazeDisplay" height="750.0" width="800.0" >
+                </MazeCanvasDisplay>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

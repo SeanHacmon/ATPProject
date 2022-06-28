@@ -14,26 +14,35 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.scene.media.AudioClip;
-
+import View.Main;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+
+import static View.Main.playStartMusic;
+import static View.Main.mediaPlayer;
+import static View.Main.myMedia;
 
 public class BackGround
 {
     private Stage stage = new Stage();
     public MyViewController viewController;
     public MyModel model;
-    private AudioClip backgroundAudio;
 
-    public BackGround() {}//this.playBackground();
+    public BackGround() {}
 
     public void StartButton(ActionEvent actionEvent)
     {
+        playStartMusic("Stop");
+        String path = "resources/Sounds/background.mp3";
+        myMedia = new Media(new File(path).toURI().toString());
+        mediaPlayer = new MediaPlayer(myMedia);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        playBackground("Play");
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MyView.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-
             viewController = fxmlLoader.getController();
             stage.setTitle("Pokemon LeafGreen");
             stage.setScene(new Scene(root, 1000, 900));
@@ -61,18 +70,14 @@ public class BackGround
         }
     }
 
-    private void playBackground()
+    private void playBackground(String s)
     {
-//        String path = "resources/Sounds/background.mp3";
-        String path;
-        try {
-            path = getClass().getResource("/Sounds/background.mp3").toString();
-            Media myMedia = new Media(new File(path).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(myMedia);
-            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        if (s.equals("Play"))
             mediaPlayer.play();
-        } catch (Exception e) {
-            System.out.println("Start sound not found");
+        if (s.equals("Stop"))
+        {
+            mediaPlayer.stop();
+            mediaPlayer.setMute(true);
         }
     }
 

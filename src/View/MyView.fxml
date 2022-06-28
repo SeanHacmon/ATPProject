@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import View.MazeCanvasDisplay?>
+<!--<?import View.MazeCanvasDisplay?>-->
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -35,17 +35,17 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
-                    <Label text="Maze rows:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                    <Label text="Maze columns:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <Label text="Maze rows:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label text="Maze columns:" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                     <TextField fx:id="textField_mazeRows" prefWidth="75.0" text="15" GridPane.columnIndex="1" />
                     <TextField fx:id="textField_mazeColumns" prefWidth="75.0" text="15" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <Button onAction="#generateMazeButton" prefHeight="25.0" prefWidth="189.0" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-                    <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="190.0" text="Solve Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-               <Label text="Player Row:" GridPane.rowIndex="5" />
-               <Label text="Player Col:" GridPane.rowIndex="6" />
-               <Label fx:id="label_Prow" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-               <Label fx:id="label_Pcol" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-               <Button onAction="#ExitButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="182.0" text="Exit" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                    <Button onAction="#generateMazeButton" prefHeight="25.0" prefWidth="189.0" style="-fx-background-color: INDIGO; -fx-border-color: White;" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                    <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: INDIGO; -fx-border-color: WHITE;" text="Solve Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+               <Label text="Player Row:" textFill="WHITE" GridPane.rowIndex="5" />
+               <Label text="Player Col:" textFill="WHITE" GridPane.rowIndex="6" />
+               <Label fx:id="label_Prow" text="Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               <Label fx:id="label_Pcol" text="Label" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+               <Button mnemonicParsing="false" onAction="#ExitButton" prefHeight="25.0" prefWidth="182.0" style="-fx-background-color: INDIGO; -fx-border-color: WHITE;" text="Exit" GridPane.columnSpan="2" GridPane.rowIndex="4" />
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -74,19 +74,16 @@
                         <Menu mnemonicParsing="false" text="File">
                             <items>
                         <MenuItem fx:id="OpenItem" mnemonicParsing="false" onAction="#OpenButton" text="Open" />
-                                <MenuItem mnemonicParsing="false" text="Close" />
                         <MenuItem fx:id="saveItem" mnemonicParsing="false" onAction="#SaveButton" text="Save" />
-                        <MenuItem mnemonicParsing="false" text="Restart" />
+                        <MenuItem mnemonicParsing="false" onAction="#LoadButton" text="Load" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
+                        <Menu mnemonicParsing="false" text="Options">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
+                        <MenuItem onAction="#PropertiesClick" mnemonicParsing="false" text="Properties" />
+                                <MenuItem onAction="#AboutClick" mnemonicParsing="false" text="About" />
+                        <MenuItem onAction="#HelpClick" mnemonicParsing="false" text="Help" />
+                        <MenuItem onAction="#ExitClick" mnemonicParsing="false" text="Exit" />
                             </items>
                         </Menu>
                     </menus>
@@ -97,8 +94,8 @@
     <center>
         <Pane prefHeight="239.0" prefWidth="244.0" BorderPane.alignment="CENTER">
             <children>
-                <MazeCanvasDisplay onKeyPressed="#keyPress" fx:id="mazeDisplay" height="750.0" width="800.0" >
-                </MazeCanvasDisplay>
+<!--                <MazeCanvasDisplay onKeyPressed="#keyPress" fx:id="mazeDisplay" height="750.0" width="800.0" >-->
+<!--                </MazeCanvasDisplay>-->
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

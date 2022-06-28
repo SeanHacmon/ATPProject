@@ -200,6 +200,11 @@ public class MyModel extends Observable implements IModel
         }
         setChanged();
         notifyObservers("Player was moved");
+        if (this.playerPosition.equals(this.maze.goalPosition))
+        {
+            setChanged();
+            notifyObservers("Won game");
+        }
     }
 
     @Override

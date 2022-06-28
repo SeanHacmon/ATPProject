@@ -8,16 +8,25 @@ import algorithms.search.MazeState;
 import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -40,11 +49,6 @@ public class MazeCanvasDisplay extends Canvas
 //    private MazeAudioPlayer mazeAudioPlayer;
 
 
-//    public MazeCanvasDisplay()
-//    {
-//        this.LoadRes();
-//        this.requestFocus();
-//    }
 
 //    public void LoadRes()
 //    {
@@ -98,7 +102,7 @@ public class MazeCanvasDisplay extends Canvas
         int cols = maze.maze[0].length;
         Image wallImage = null;
         try {
-            wallImage = new Image(new FileInputStream("./Resources/Images/wall.png"));
+            wallImage = new Image(new FileInputStream("./resources/Images/wall.png"));
         }
         catch (FileNotFoundException e){System.out.println("There is no wall image");}
 
@@ -121,6 +125,18 @@ public class MazeCanvasDisplay extends Canvas
             }
         }
     }
+//
+//    public Alert getAlertImage()
+//    {
+//        ButtonType Yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+//        ButtonType No = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+//        Alert alert = new Alert(Alert.AlertType.WARNING,"Start a new game?",Yes,No);
+//        alert.setHeaderText("You won the game!");
+//        Image image = new Image("./resources/Images/EndGame.png");
+//        ImageView imageView = new ImageView(image);
+//        alert.setGraphic(imageView);
+//        return alert;
+//    }
 
     private void StartGame()
     {
@@ -144,7 +160,7 @@ public class MazeCanvasDisplay extends Canvas
         Image goalImage = null;
         try
         {
-            goalImage = new Image(new FileInputStream("./Resources/Images/Charizard.png"));
+            goalImage = new Image(new FileInputStream("./resources/Images/Mewtoo.png"));
         }
         catch (FileNotFoundException e){System.out.println("There is no Goal image");}
         Color goalColor = Color.LAWNGREEN;
@@ -170,10 +186,10 @@ public class MazeCanvasDisplay extends Canvas
         Image playerImageLeft = null;
 
         try {
-            playerImageUp = new Image(new FileInputStream("./Resources/Images/Ash_Up.png"));
-            playerImageDown = new Image(new FileInputStream("./Resources/Images/Ash_Down.png"));
-            playerImageRight = new Image(new FileInputStream("./Resources/Images/Ash_Right.png"));
-            playerImageLeft = new Image(new FileInputStream("./Resources/Images/Ash_Left.png"));
+            playerImageUp = new Image(new FileInputStream("./resources/Images/Ash_Up.png"));
+            playerImageDown = new Image(new FileInputStream("./resources/Images/Ash_Down.png"));
+            playerImageRight = new Image(new FileInputStream("./resources/Images/Ash_Right.png"));
+            playerImageLeft = new Image(new FileInputStream("./resources/Images/Ash_Left.png"));
         }
         catch (FileNotFoundException e){System.out.println("There is no player image");}
         double x = this.playerCol* cellWidth;
@@ -194,10 +210,10 @@ public class MazeCanvasDisplay extends Canvas
         Image playerImageLeft = null;
 
         try {
-            playerImageUp = new Image(new FileInputStream("./Resources/Images/Ash_Up.png"));
-            playerImageDown = new Image(new FileInputStream("./Resources/Images/Ash_Down.png"));
-            playerImageRight = new Image(new FileInputStream("./Resources/Images/Ash_Right.png"));
-            playerImageLeft = new Image(new FileInputStream("./Resources/Images/Ash_Left.png"));
+            playerImageUp = new Image(new FileInputStream("./resources/Images/Ash_Up.png"));
+            playerImageDown = new Image(new FileInputStream("./resources/Images/Ash_Down.png"));
+            playerImageRight = new Image(new FileInputStream("./resources/Images/Ash_Right.png"));
+            playerImageLeft = new Image(new FileInputStream("./resources/Images/Ash_Left.png"));
         }
         catch (FileNotFoundException e){System.out.println("There is no player image");}
         double x = this.playerCol* cellWidth;
@@ -216,10 +232,10 @@ public class MazeCanvasDisplay extends Canvas
         Image playerImageLeft = null;
 
         try {
-            playerImageUp = new Image(new FileInputStream("./Resources/Images/Ash_Up.png"));
-            playerImageDown = new Image(new FileInputStream("./Resources/Images/Ash_Down.png"));
-            playerImageRight = new Image(new FileInputStream("./Resources/Images/Ash_Right.png"));
-            playerImageLeft = new Image(new FileInputStream("./Resources/Images/Ash_Left.png"));
+            playerImageUp = new Image(new FileInputStream("./resources/Images/Ash_Up.png"));
+            playerImageDown = new Image(new FileInputStream("./resources/Images/Ash_Down.png"));
+            playerImageRight = new Image(new FileInputStream("./resources/Images/Ash_Right.png"));
+            playerImageLeft = new Image(new FileInputStream("./resources/Images/Ash_Left.png"));
         }
         catch (FileNotFoundException e){System.out.println("There is no player image");}
         double x = this.playerCol* cellWidth;
@@ -238,10 +254,10 @@ public class MazeCanvasDisplay extends Canvas
         Image playerImageLeft = null;
 
         try {
-            playerImageUp = new Image(new FileInputStream("./Resources/Images/Ash_Up.png"));
-            playerImageDown = new Image(new FileInputStream("./Resources/Images/Ash_Down.png"));
-            playerImageRight = new Image(new FileInputStream("./Resources/Images/Ash_Right.png"));
-            playerImageLeft = new Image(new FileInputStream("./Resources/Images/Ash_Left.png"));
+            playerImageUp = new Image(new FileInputStream("./resources/Images/Ash_Up.png"));
+            playerImageDown = new Image(new FileInputStream("./resources/Images/Ash_Down.png"));
+            playerImageRight = new Image(new FileInputStream("./resources/Images/Ash_Right.png"));
+            playerImageLeft = new Image(new FileInputStream("./resources/Images/Ash_Left.png"));
         }
         catch (FileNotFoundException e){System.out.println("There is no player image");}
         double x = this.playerCol* cellWidth;
@@ -260,10 +276,10 @@ public class MazeCanvasDisplay extends Canvas
         Image playerImageLeft = null;
 
         try {
-            playerImageUp = new Image(new FileInputStream("./Resources/Images/Ash_Up.png"));
-            playerImageDown = new Image(new FileInputStream("./Resources/Images/Ash_Down.png"));
-            playerImageRight = new Image(new FileInputStream("./Resources/Images/Ash_Right.png"));
-            playerImageLeft = new Image(new FileInputStream("./Resources/Images/Ash_Left.png"));
+            playerImageUp = new Image(new FileInputStream("./resources/Images/Ash_Up.png"));
+            playerImageDown = new Image(new FileInputStream("./resources/Images/Ash_Down.png"));
+            playerImageRight = new Image(new FileInputStream("./resources/Images/Ash_Right.png"));
+            playerImageLeft = new Image(new FileInputStream("./resources/Images/Ash_Left.png"));
         }
         catch (FileNotFoundException e){System.out.println("There is no player image");}
         double x = this.playerCol* cellWidth;
@@ -385,6 +401,26 @@ public class MazeCanvasDisplay extends Canvas
             StartGame();
             PlayerGoUp(canvasWidth / this.maze.maze[0].length, canvasHeight/this.maze.maze.length);
         }
+    }
+
+    public void help() throws FileNotFoundException
+    {
+        Stage stage = new Stage();
+        GridPane gridPane = new GridPane();
+        AnchorPane anchorPane = new AnchorPane();
+        InputStream stream = new FileInputStream("resources/Images/HelpMenu.png");
+        Image image = new Image(stream);
+        ImageView imageView = new ImageView(image);
+        imageView.fitWidthProperty().bind(gridPane.widthProperty());
+        imageView.setPreserveRatio(true);
+        anchorPane.getChildren().add(imageView);
+        gridPane.getChildren().add(anchorPane);
+        Scene scene = new Scene(gridPane, 900, 760);
+        InputStream Stream = new FileInputStream("resources/Images/HelpMenu.png");
+        stage.getIcons().add(new Image(Stream));
+        stage.setTitle("Help");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void resizeHandle() {

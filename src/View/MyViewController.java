@@ -6,23 +6,36 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.scene.layout.VBox;
 import java.awt.*;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import static View.Main.playStartMusic;
+import static View.Main.mediaPlayer;
+import static View.Main.myMedia;
+
+
 
 public class MyViewController implements IView, Initializable, Observer
 {
@@ -50,6 +63,12 @@ public class MyViewController implements IView, Initializable, Observer
 
     public void generateMazeButton(ActionEvent actionEvent)
     {
+        mediaPlayer.stop();
+        String path = "resources/Sounds/RunningMaze.mp3";
+        myMedia = new Media(new File(path).toURI().toString());
+        mediaPlayer = new MediaPlayer(myMedia);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();
         int rows = Integer.parseInt(textField_mazeRows.getText());
         int cols = Integer.parseInt(textField_mazeColumns.getText());
         viewModel.transformMaze(rows, cols);
@@ -132,6 +151,11 @@ public class MyViewController implements IView, Initializable, Observer
                 setUpdatePlayerRow(viewModel.getPlayerPosition().getRowIndex());
                 setUpdatePlayerCol(viewModel.getPlayerPosition().getColumnIndex());}
             case "Solved Maze" -> mazeDisplay.setSolution(viewModel.getSolution());
+
+            case "Won game" -> {
+                Stage stage = new Stage();
+                EndGame(stage);
+            }
             default -> System.out.println("didnt do anything");
         }
 
@@ -143,9 +167,52 @@ public class MyViewController implements IView, Initializable, Observer
         Platform.exit();
     }
 
+    public void EndGame(Stage mainStage) {
+        ButtonType Yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType No = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(Alert.AlertType.WARNING,"Start a new game?",Yes,No);
+        alert.setHeaderText("You won the game!");
+
+
+        if (alert.showAndWait().get() == Yes)
+        {
+            int rows = Integer.parseInt(textField_mazeRows.getText());
+            int cols = Integer.parseInt(textField_mazeColumns.getText());
+            viewModel.transformMaze(rows, cols);
+            viewModel.setSolution(null);
+            mazeDisplay.setSolution(null);
+            mazeDisplay.drawMaze(viewModel.getMaze());
+        }
+        else
+        {
+            viewModel.getModel().stopServers();
+            mainStage.close();
+            Platform.exit();
+        }
+    }
+
+
 
     public GridPane getPane() {return pane;}
     public void setPane(GridPane pane) {this.pane = pane;}
     public MyViewModel getViewModel() {return viewModel;}
     public void setViewModel(MyViewModel viewModel) {this.viewModel = viewModel;}
+
+    public void AboutClick(ActionEvent actionEvent)
+    {
+
+    }
+
+    public void HelpClick(ActionEvent actionEvent) throws FileNotFoundException {
+        mazeDisplay.help();
+    }
+
+    public void ExitClick(ActionEvent actionEvent) {
+    }
+
+    public void PropertiesClick(ActionEvent actionEvent) {
+    }
+
+    public void LoadButton(ActionEvent actionEvent) {
+    }
 }

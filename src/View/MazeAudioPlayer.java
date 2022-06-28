@@ -1,16 +1,16 @@
 //package View;
-
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
-import java.io.File;
-
+//
+//import javafx.scene.media.AudioClip;
+//import javafx.scene.media.Media;
+//import javafx.scene.media.MediaPlayer;
+//
+//import java.io.File;
+//
 //public class MazeAudioPlayer {
-
-
+//
+//
 //    private static MazeAudioPlayer mediaPlayer = null;
-
+//
 //    private AudioClip backgroundAudio, startAudio, wallAudio, solutionAudio, propertiesAudio;
 //    private MediaPlayer mediaPlayer;
 //    protected MazeAudioPlayer() {
@@ -22,7 +22,7 @@ import java.io.File;
 //            mediaPlayer = new MediaPlayer(media);
 //        }
 //    }
-
+//
 //    private void playBackground(String fileName)
 //    {
 //        String path = getClass().getResource(fileName).getPath();

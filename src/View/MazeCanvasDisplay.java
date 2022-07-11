@@ -339,11 +339,11 @@ public class MazeCanvasDisplay extends Canvas
         return pathHashMap;
     }
 
-    public void finish() {
-//        this.mazeAudioPlayer.stopAll();
-        StageGenerator.getInstance(StageGenerator.StageName.Main).close();
-        StageGenerator.startVideo();
-    }
+//    public void finish() {
+////        this.mazeAudioPlayer.stopAll();
+//        StageGenerator.getInstance(StageGenerator.StageName.Main).close();
+//        StageGenerator.startVideo();
+//    }
 
     public void toggleFreeCamera() {
         this.camera.toggleFreeCamera();
@@ -443,17 +443,5 @@ public class MazeCanvasDisplay extends Canvas
         stage.show();
 
     }
-
-
-
-//
-//    public void resizeHandle() {
-//        this.updateCamera();
-//        this.draw();
-//    }
-//
-//    private void updateCamera() {
-//        //todo
-//    }
 
 }

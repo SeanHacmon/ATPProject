@@ -48,17 +48,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <ANNOTATIONS>
-          <root url="jar://$MODULE_DIR$/src/ViewModel/ATPProjectJAR.jar!/" />
-        </ANNOTATIONS>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/ViewModel/ATPProjectJAR.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" exported="" name="ATPProjectJAR" level="project" />
   </component>
 </module>

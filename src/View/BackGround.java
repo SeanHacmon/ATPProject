@@ -25,7 +25,7 @@ import static View.Main.myMedia;
 
 public class BackGround
 {
-    private Stage stage = new Stage();
+    public static Stage backStage = new Stage();
     public MyViewController viewController;
     public MyModel model;
 
@@ -44,12 +44,12 @@ public class BackGround
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MyView.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             viewController = fxmlLoader.getController();
-            stage.setTitle("Pokemon LeafGreen");
-            stage.setScene(new Scene(root, 1000, 900));
-            stage.show();
-            stage.setOnCloseRequest(e -> {
+            backStage.setTitle("Pokemon LeafGreen");
+            backStage.setScene(new Scene(root, 1000, 900));
+            backStage.show();
+            backStage.setOnCloseRequest(e -> {
                 e.consume();
-                safeExit(stage);
+                safeExit(backStage);
             });
         }
         catch (IOException exc) {
@@ -85,10 +85,10 @@ public class BackGround
     public void ExitButton(ActionEvent actionEvent)
     {
         model = new MyModel();
-        stage.close();
+        backStage.close();
         Platform.exit();
         model.stopServers();
     }
 
-    public void setStage(Stage stage) {this.stage = stage;}
+    public void setStage(Stage stage) {this.backStage = stage;}
 }

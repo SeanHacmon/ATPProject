@@ -8,6 +8,7 @@ import Server.Configurations;
 import Server.IServerStrategy;
 import Server.ServerStrategyGenerateMaze;
 import Server.ServerStrategySolveSearchProblem;
+import View.PlayerConfig;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
@@ -35,6 +36,7 @@ public class MyModel extends Observable implements IModel
     private Position playerPosition = new Position(0,0);
     private Stage stage;
 
+
     public MyModel() {}
 
     public void startServers()
@@ -55,8 +57,18 @@ public class MyModel extends Observable implements IModel
 
     public void generateMaze(int row, int col)
     {
+        String s = PlayerConfig.getInstance().getGenerateAlgorithm().name();
         try {
-
+            try {
+                if (s.equals("MyMazeGenerator"))
+                    Configurations.createInstance().readConfig().getProperty("My");
+                if (s.equals("SimpleMazeGenerator"))
+                    Configurations.createInstance().readConfig().getProperty("Simple");
+                if (s.equals("EmptyMazeGenerator"))
+                    Configurations.createInstance().readConfig().getProperty("Empty");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
                 public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
                     try {
@@ -81,7 +93,7 @@ public class MyModel extends Observable implements IModel
             });
             client.communicateWithServer();
         } catch (UnknownHostException var1) {
-            var1.printStackTrace();
+//            var1.printStackTrace();
         }
         setChanged();
         notifyObservers("Maze generated");
@@ -110,7 +122,7 @@ public class MyModel extends Observable implements IModel
                             System.out.println(String.format("%s. %s", i, ((AState)mazeSolutionSteps.get(i)).toString()));
                         }
                     } catch (Exception var10) {
-                        var10.printStackTrace();
+//                        var10.printStackTrace();
                     }
 
                 }

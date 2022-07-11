@@ -10,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -28,10 +30,13 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+
+import static View.BackGround.backStage;
 import static View.Main.playStartMusic;
 import static View.Main.mediaPlayer;
 import static View.Main.myMedia;
@@ -51,6 +56,7 @@ public class MyViewController implements IView, Initializable, Observer
     public MenuItem saveItem;
     protected MyMazeGenerator mg = new MyMazeGenerator();
     private MyViewModel viewModel;
+    public static Stage propertyStage;
 
     private StringProperty updatePlayerRow = new SimpleStringProperty();
     private StringProperty updatePlayerCol = new SimpleStringProperty();
@@ -160,6 +166,14 @@ public class MyViewController implements IView, Initializable, Observer
     }
 
     public void EndGame(Stage mainStage) {
+        playStartMusic("Stop");
+
+        String path = "resources/Sounds/start.mp3";
+        myMedia = new Media(new File(path).toURI().toString());
+        mediaPlayer = new MediaPlayer(myMedia);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        playStartMusic("Play");
+
         ButtonType Yes = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
         ButtonType No = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert alert = new Alert(Alert.AlertType.WARNING,"Start a new game?",Yes,No);
@@ -168,6 +182,14 @@ public class MyViewController implements IView, Initializable, Observer
 
         if (alert.showAndWait().get() == Yes)
         {
+            playStartMusic("Stop");
+            String pathX = "resources/Sounds/RunningMaze.mp3";
+            myMedia = new Media(new File(pathX).toURI().toString());
+            mediaPlayer = new MediaPlayer(myMedia);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.play();
+
+
             int rows = Integer.parseInt(textField_mazeRows.getText());
             int cols = Integer.parseInt(textField_mazeColumns.getText());
             viewModel.transformMaze(rows, cols);
@@ -190,6 +212,9 @@ public class MyViewController implements IView, Initializable, Observer
     public MyViewModel getViewModel() {return viewModel;}
     public void setViewModel(MyViewModel viewModel) {this.viewModel = viewModel;}
 
+    public Stage getPropertyStage() {return propertyStage;}
+    public void setPropertyStage(Stage propertyStage) {this.propertyStage = propertyStage;}
+
     public void AboutClick(ActionEvent actionEvent) throws FileNotFoundException {
         mazeDisplay.About();
     }
@@ -203,7 +228,25 @@ public class MyViewController implements IView, Initializable, Observer
         ExitButton(actionEvent);
     }
 
-    public void PropertiesClick(ActionEvent actionEvent) {
+    public void PropertiesClick(ActionEvent actionEvent)
+    {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Properties.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Scene scene = new Scene(root, 600, 400);
+            String css = this.getClass().getResource("MainStyle.css").toString();
+            scene.getStylesheets().add(css);
+            propertyStage = new Stage();
+            propertyStage.setScene(scene);
+            propertyStage.setTitle("Properties");
+            propertyStage.setResizable(false);
+            propertyStage.show();
+        }
+        catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.getMessage());
+            alert.show();
+        }
     }
 
     public void LoadButton(ActionEvent actionEvent) {
@@ -218,4 +261,5 @@ public class MyViewController implements IView, Initializable, Observer
     {
         generateMazeButton(actionEvent);
     }
+
 }

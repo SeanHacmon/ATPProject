@@ -108,8 +108,8 @@ public class PlayerConfig {
     public static GenerateAlgorithm toAlgorithm(String algo) {
         GenerateAlgorithm retVal = GenerateAlgorithm.MyMazeGenerator;
         switch (algo) {
-            case "EmptyMazeGenerator" -> retVal = GenerateAlgorithm.EmptyMazeGenerator;
-            case "SimpleMazeGenerator" -> retVal = GenerateAlgorithm.SimpleMazeGenerator;
+            case "Empty" -> retVal = GenerateAlgorithm.EmptyMazeGenerator;
+            case "Simple" -> retVal = GenerateAlgorithm.SimpleMazeGenerator;
         }
         return retVal;
     }
@@ -117,6 +117,9 @@ public class PlayerConfig {
     public enum GenerateAlgorithm {
         EmptyMazeGenerator,
         SimpleMazeGenerator,
-        MyMazeGenerator
+        MyMazeGenerator,
+        Empty,
+        Simple,
+        My
     }
 }
